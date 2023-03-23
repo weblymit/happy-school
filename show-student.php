@@ -1,4 +1,5 @@
 <?php
+session_start();
 // titre de la page
 $title = "Information de l'étudiant";
 

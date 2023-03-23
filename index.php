@@ -1,4 +1,6 @@
 <?php
+session_start();
+include_once('views/partials/_alert.php');
 // titre de la page
 $title = "Liste de nos étudiants";
 

@@ -7,6 +7,7 @@
         <th>Prénom</th>
         <th>Nom</th>
         <th>Formation</th>
+        <th>Status</th>
         <th>Voir</th>
         <th>Modifier</th>
       </tr>
@@ -20,6 +21,7 @@
           <td><?= $student['fName'] ?></td>
           <td><?= $student['lName'] ?></td>
           <td><?= $student['formation'] ?></td>
+          <td><?= $student['status'] == 0 ? "Liste d'attente" : "Inscrit" ?></td>
           <td>
             <a href="show-student.php?id=<?= $student['id'] ?>&name=<?= $student['fName'] ?>">
               <i class="fa-solid fa-eye text-green-500"></i>

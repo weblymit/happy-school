@@ -75,3 +75,94 @@ function get($table)
 
   return $item;
 }
+
+/**
+ * delete one student
+ *
+ */
+function delete($table)
+{
+  global $pdo;
+  $id = getId();
+  // faire la requette
+  $sql = "DELETE FROM $table where id= :id";
+  // prepare la requette
+  $query = $pdo->prepare($sql);
+  // Associe ou lie la valeur à un parametre
+  $query->bindValue(':id', $id, PDO::PARAM_INT);
+  // execute ma requette
+  $query->execute();
+
+  $_SESSION["success"] = "L'élément a bien été supprimé avec succès!!";
+  // redirect
+  header('Location: index.php');
+}
+
+/**
+ * insert to DB
+ */
+
+function create($fName, $lName, $email, $age, $formation, $date_of_birth, $status)
+{
+
+  global $pdo;
+  global $error;
+  global $success;
+  if (count($error) == 0) {
+    $success = true;
+    //1- la requette
+    $sql = "INSERT INTO students(fName, lName, email, age, formation, created_at, date_of_birth, status ) VALUES(:fName, :lName, :email, :age, :formation, NOW(), :date_of_birth, :status) ";
+    // 2- Prepare la requette
+    $query = $pdo->prepare($sql);
+    // 3- associer chaque parametre a sa value
+    $query->bindValue(':fName', $fName, PDO::PARAM_STR);
+    $query->bindValue(':lName', $lName, PDO::PARAM_STR);
+    $query->bindValue(':email', $email, PDO::PARAM_STR);
+    $query->bindValue(':age', $age, PDO::PARAM_INT);
+    $query->bindValue(':formation', $formation, PDO::PARAM_STR);
+    $query->bindValue(':date_of_birth', $date_of_birth, PDO::PARAM_STR);
+    $query->bindValue(':status', $status, PDO::PARAM_STR);
+    // 4- execute la query
+    $query->execute();
+
+    // // 5- redirect
+    $_SESSION["success"] = "Etudiant ajouté";
+    // redirect
+    header('Location: index.php');
+  }
+}
+
+/**
+ * update item in DB
+ */
+
+function update($fName, $lName, $email, $age, $formation, $date_of_birth, $status, $id)
+{
+
+  global $pdo;
+  global $error;
+  global $success;
+  if (count($error) == 0) {
+    $success = true;
+    //1- la requette
+    $sql = "UPDATE `students` SET `fName`=:fName, `lName`=:lName,`email`=:email, `age`=:age, `formation`=:formation, `date_of_birth`=:date_of_birth, `status`=:status, `updated_at`= NOW() WHERE id=:id ";
+    // 2- Prepare la requette
+    $query = $pdo->prepare($sql);
+    // 3- associer chaque parametre a sa value
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->bindValue(':fName', $fName, PDO::PARAM_STR);
+    $query->bindValue(':lName', $lName, PDO::PARAM_STR);
+    $query->bindValue(':email', $email, PDO::PARAM_STR);
+    $query->bindValue(':age', $age, PDO::PARAM_INT);
+    $query->bindValue(':formation', $formation, PDO::PARAM_STR);
+    $query->bindValue(':date_of_birth', $date_of_birth, PDO::PARAM_STR);
+    $query->bindValue(':status', $status, PDO::PARAM_STR);
+    // 4- execute la query
+    $query->execute();
+
+    // // 5- redirect
+    $_SESSION["success"] = "Etudiant modifié";
+    // redirect
+    header('Location: index.php');
+  }
+}

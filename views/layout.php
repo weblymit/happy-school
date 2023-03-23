@@ -1,6 +1,6 @@
 <?php
 // demarrage de la session
-session_start();
+// session_start();
 include('helpers/datas.php');
 include_once('helpers/functions.php');
 ?>
